@@ -17,14 +17,15 @@ def construct_candidates(a, k, input, c):
 
 def backtrack(a, k, input):
     global MAXCANDIDATES
-    global minV
+    global min_total
     c = [0] * MAXCANDIDATES
 
     if k == N:
-        tsum = 0
+        total_sum = 0
         for i in range(1, k + 1):
-            tsum += m[i-1][a[i]-1]
-        if tsum < minV : minV = tsum
+            total_sum += array[i-1][a[i]-1]
+        if total_sum < min_total :
+            min_total = total_sum
 
     else:
         k += 1
@@ -38,14 +39,14 @@ def backtrack(a, k, input):
 T = int(input())
 for tc in range(1, T+1):
     N = int(input())
-    m = [list(map(int,input().split())) for x in range (N)]
-    u = [0 for i in range(N)]
-    minV = 100
+    array = [list(map(int,input().split())) for x in range (N)]
+    u = [0 for i in range(N)] # u = [0, 0, 0]
+    min_total = 100 # 최소합
     MAXCANDIDATES = 100
     NMAX = 100
-    a = [0] * (N + 1)
+    a = [0] * (N + 1) # a = [0, 0, 0, 0]
     backtrack(a, 0, N)
-    print("#%d"%tc, minV)
+    print("#%d"%tc, min_total)
 
 
 
@@ -88,4 +89,4 @@ for tc in range(1, T+1):
 #     perm = [0] * N
 #     backtrack(perm, 0, 0)
 #     print("#%d"%tc, minV)
-#
+
