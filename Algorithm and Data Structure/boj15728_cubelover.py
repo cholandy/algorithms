@@ -1,0 +1,5 @@
+n, m = map(int, input().split())
+a = list(map(int, input().split()))
+p = min(a)
+q = max(a)
+print(sorted(max(p * x, q * x) for x in map(int, input().split()))[-m-1])
