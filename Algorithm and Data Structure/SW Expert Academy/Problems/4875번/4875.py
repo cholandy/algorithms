@@ -1,5 +1,5 @@
 import sys
-sys.stdin = open('input.txt','r')
+sys.stdin = open('SW Expert Academy/Problems/4875번/input.txt','r')
 
 def DFSr(x, y):
     global found

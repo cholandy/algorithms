@@ -1,0 +1,6 @@
+a=input()
+a=a.replace('dz=','!')
+a=a.replace('lj','!')
+a=a.replace('nj','!')
+a=a.replace('=','').replace('-','')
+print(len(a))

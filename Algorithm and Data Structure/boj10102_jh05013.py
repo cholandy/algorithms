@@ -1,5 +1,0 @@
-input()
-s=input()
-a=s.count("A")
-b=s.count("B")
-print(["Tie","B","A"][(a<b)-(b<a)])
