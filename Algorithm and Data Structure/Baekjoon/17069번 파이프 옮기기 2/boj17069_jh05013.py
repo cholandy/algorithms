@@ -1,4 +1,6 @@
 __import__('sys').setrecursionlimit(923123)
+import sys
+sys.stdin = open('C:\\Users\\student\\Desktop\\asdf\\Algorithm and Data Structure\\input.txt', 'r')
 n = int(input())
 grid = [list(map(int,input().split())) for i in range(n)]
 dp = [[[None]*n for i in range(n)] for j in range(3)]
