@@ -1,5 +1,5 @@
 import sys
-sys.stdin = open("input.txt", "r")
+sys.stdin = open("C:/Users/student/Desktop/asdf/Algorithm and Data Structure/01210ë²ˆ Ladder1/input.txt", "r")
 
 def check(x, y):
     if x < 0 or x > 99 : return False
@@ -16,14 +16,14 @@ def solve( ):
 
     x = 99
     y = s
-    d = 0       # -1(¿ÞÂÊ), 0(À§), 1(¿À¸¥ÂÊ)
+    d = 0    
 
     while x != 0 :
         if   ((d == 0 or d == -1) and check(x, y - 1)) : d = -1; y -= 1
         elif ((d == 0 or d ==  1) and check(x, y + 1)) : d =  1; y +=1
         else :	d = 0; x -= 1
 
-    return y;
+    return y
 
 
 for tc in range(1, 11):
