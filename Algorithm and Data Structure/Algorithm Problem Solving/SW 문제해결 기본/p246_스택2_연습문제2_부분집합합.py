@@ -1,3 +1,4 @@
+
 def construct_candidates(a, k, input, c):
     c[0] = True
     c[1] = False

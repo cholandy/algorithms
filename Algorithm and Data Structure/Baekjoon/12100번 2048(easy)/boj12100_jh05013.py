@@ -30,4 +30,4 @@ def dfs(L, move):
         res = max(res, dfs(UD(L, d), move-1))
     return res
 
-print(dfs(grid, 5))
+print(dfs(grid, 10))
