@@ -1,5 +1,5 @@
 {
-    "python.pythonPath": "C:\\Users\\woosa\\AppData\\Local\\Programs\\Python\\Python37\\python.exe",
+    "python.pythonPath": "C:\\Users\\student\\AppData\\Local\\Programs\\Python\\Python37\\python.exe",
     "files.autoGuessEncoding": true,
     "editor.wordWrap": "on",
     "files.autoSave": "onWindowChange", 
@@ -10,6 +10,7 @@
     "code-runner.saveAllFilesBeforeRun": true,
     "code-runner.runInTerminal": true,
     "python.linting.enabled": true,
+    "python.linting.pylintEnabled": true,
 
 
 }
