@@ -19,5 +19,3 @@ for i in range(100):
         if a[i][j] and a[i+1][j] and a[i][j+1] and a[i+1][j+1]:
             ans += 1
 print(ans)
-
-
