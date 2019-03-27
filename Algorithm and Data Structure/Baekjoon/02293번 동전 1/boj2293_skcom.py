@@ -1,4 +1,5 @@
 import sys
+sys.stdin = open('input.txt','r')
 n, k = list(map(int, input().split()))
 coin = list(map(int, sys.stdin.readlines()))
 dp = [0]*(k+1)
