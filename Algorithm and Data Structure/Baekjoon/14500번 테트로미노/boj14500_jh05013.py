@@ -21,8 +21,6 @@ tetro = (((1,1,1,1),),
 def place(piece, y, x):
     return sum(grid[y+i][x+j]*piece[i][j] for i in range(len(piece)) for j in range(len(piece[0])))
 
-input = raw_input
-range = xrange
 n, m = map(int,input().split())
 grid = [list(map(int,input().split())) for i in range(n)]
 res = 0

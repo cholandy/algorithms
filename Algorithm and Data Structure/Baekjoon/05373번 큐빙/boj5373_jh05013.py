@@ -1,6 +1,3 @@
-import sys
-sys.stdin = open('input.txt', 'r')
-
 def moveface(a11, a12, a13, a21, a22, a23, a31, a32, a33):
     c[a11], c[a12], c[a13], c[a21], c[a22], c[a23], c[a31], c[a32], c[a33] = \
         c[a31], c[a21], c[a11], c[a32], c[a22], c[a12], c[a33], c[a23], c[a13]
