@@ -1,6 +1,6 @@
 import sys
 sys.stdin = open('input.txt','r')
-max=0
+
 def bt(work,prob) :
     global max
     if prob <= max:return
@@ -21,6 +21,6 @@ for tc in range(int(input())) :
         for j in range(n):
             board[i][j]=board[i][j]/100
     done = [0]*n
+    max = 0
     bt(0,1)
     print("#%d %0.6f" % (tc+1, max*100))
-    max = 0

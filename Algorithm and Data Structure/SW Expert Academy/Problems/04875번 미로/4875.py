@@ -1,6 +1,6 @@
 import sys
 sys.stdin = open('SW Expert Academy/Problems/4875번/input.txt','r')
-
+found=0
 def DFSr(x, y):
     global found
 
@@ -27,7 +27,6 @@ for tc in range(1, T + 1):
             if maze[i][j] == 2 :
                 X = i
                 Y = j
-
-    found = 0
     DFSr(X, Y)
     print('#%d'%tc, found)
+    found = 0
