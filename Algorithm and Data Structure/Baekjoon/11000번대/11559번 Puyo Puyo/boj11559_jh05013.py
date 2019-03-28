@@ -7,9 +7,11 @@ def pop(si, sj):
         for ni, nj in (i-1,j), (i+1,j), (i,j-1), (i,j+1):
             if (ni,nj) in vis: continue
             if 0<=ni<12 and 0<=nj<6 and grid[ni][nj] == grid[si][sj]:
-                stack.append((ni,nj)); vis.add((ni,nj))
+                stack.append((ni,nj)) 
+                vis.add((ni,nj))
     if len(vis) >= 4:
-        for i, j in vis: grid[i][j] = '.'
+        for i, j in vis: 
+            grid[i][j] = '.'
         return True
     return False
 
@@ -25,5 +27,8 @@ def drop(j):
 
 grid = [list(input()) for i in range(12)]
 for CYCLE in range(72):
-    if not puyo(): print(CYCLE); break
-    for j in range(6): drop(j)
+    if not puyo(): 
+        print(CYCLE) 
+        break
+    for j in range(6): 
+        drop(j)
