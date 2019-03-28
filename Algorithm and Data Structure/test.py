@@ -1,26 +1,15 @@
-import sys
-sys.stdin = open('input.txt','r')
-max=0
-def bt(work,prob) :
-    global max
-    if prob <= max:return
-    if work == n :
-        if prob > max :
-            max = prob
-        return
-    for i in range(n) :
-        if done[i] == 0 :
-            done[i] = 1
-            bt(work+1,prob*board[i][work])
-            done[i] = 0
+from itertools import permutations as pm, combinations as cb
 
-for tc in range(int(input())) :
-    n = int(input())
-    board = [list(map(int,input().split())) for _ in range(n)]
-    for i in range(n):
-        for j in range(n):
-            board[i][j]=board[i][j]/100
-    done = [0]*n
-    bt(0,1)
-    print("#%d %0.6f" % (tc+1, max*100))
-    max = 0
+arr=[3,6,7,1,5,4]
+arr.sort()
+n=len(arr)
+for i in range(1<<n): #0부터 63까지
+    aa=str(bin(i&63))[2:].count('1')
+    if aa==4:
+        for j in range(n+1):
+            if i&(1<<j):
+                print(arr[j], end=' ')
+        print()
+print()
+for i in cb(arr,4):
+    print(*i)
