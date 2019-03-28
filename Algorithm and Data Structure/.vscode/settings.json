@@ -1,9 +1,9 @@
 {
-    "python.pythonPath": "C:\\Users\\student\\AppData\\Local\\Programs\\Python\\Python37\\python.exe",
+    "python.pythonPath": "/usr/local/bin/python3",
     "files.autoGuessEncoding": true,
     "editor.wordWrap": "on",
-    "files.autoSave": "onWindowChange", 
-    "editor.fontFamily": "Consolas, 맑은고딕", 
+    "files.autoSave": "onWindowChange",
+    
     "code-runner.showRunCommandInEditorContextMenu": false,
     "code-runner.defaultLanguage": "python",
     "code-runner.clearPreviousOutput": true,
