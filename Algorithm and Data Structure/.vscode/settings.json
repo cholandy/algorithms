@@ -1,5 +1,5 @@
 {
-    "python.pythonPath": "/usr/local/bin/python3",
+    "python.pythonPath": "C:\\Users\\student\\AppData\\Local\\Programs\\Python\\Python37\\python.exe",
     "files.autoGuessEncoding": true,
     "editor.wordWrap": "on",
     "files.autoSave": "onWindowChange",
@@ -11,6 +11,5 @@
     "code-runner.runInTerminal": true,
     "python.linting.enabled": true,
     "python.linting.pylintEnabled": true,
-
 
 }
