@@ -1,24 +1,19 @@
-import sys;sys.stdin=open('input.txt','r')
-input=__import__('sys').stdin.readline
+def DFSr(v):
+    print(v,end=' ')
+    visited[v] = True
 
-T=int(input())
-for tc in range(1,T+1):
-    day,month,quarter,year=map(int,input().split())
-    arr=list(map(int,input().split()))
-    MIN=year
+    for i in range(1, 8):
+        if G[v][i] and not visited[i]:
+            DFSr(i)
 
-    def calc(n,cost):#첫 번째 인자는 월, 두 번째 인자는 비용
-        global MIN
-        #0월부터 11월까지 볼 것. 
-        #base condition은 n이 12이상 되는 상황
-        if n>11:
-            MIN=min(MIN,cost)
-            return
-        if arr[n]==0:
-            calc(n+1, cost)
-        else:
-            calc(n+1, cost+day*arr[n])
-            calc(n+1, cost+month)
-            calc(n+3, cost+quarter)
-    calc(0,0)
-    print(MIN)
+
+edges = [1, 2, 1, 3, 2, 4, 2, 5, 4, 6, 5, 6, 6, 7, 3, 7]
+visited = [0] * 8
+G = [[0] * 8 for _ in range(8)]
+
+for i in range(0, len(edges), 2):
+    G[edges[i]][edges[i+1]] = 1
+    G[edges[i+1]][edges[i]] = 1
+
+DFSr(1)
+# [print(*i) for i in G]
