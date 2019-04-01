@@ -1,6 +1,4 @@
-import sys
-sys.stdin = open("C:/Users/student/Desktop/asdf/Algorithm and Data Structure/01210번 Ladder1/input.txt", "r")
-
+mat = [0] * 100
 def check(x, y):
     if x < 0 or x > 99 : return False
     if y < 0 or y > 99 : return False
