@@ -1,5 +1,5 @@
 import sys
-sys.stdin = open('input.txt','r')
+sys.stdin = open('input1.txt','r')
 
 def make_set(x):
     p[x]=x
