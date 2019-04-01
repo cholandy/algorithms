@@ -1,5 +1,6 @@
 import sys;sys.stdin=open('input2.txt','r')
 
+
 def tsp(now, next): # now=현재, next=다음
     ret = dp[now][next]
     res = float('INF')
@@ -29,4 +30,4 @@ for tc in range(int(input())):
         for j in range(N+2):
             dist[i][j] = abs(gps[i][0]-gps[j][0]) + abs(gps[i][1]-gps[j][1])
     
-    print(f'#{tc+1} {tsp(0, 1)}') # tsp(현재 고객 0명, 회사에서 출발)
+    print(f'#{tc+1} {tsp(0, (1<<0))}') # tsp(현재 고객 0명, 회사에서 출발)
