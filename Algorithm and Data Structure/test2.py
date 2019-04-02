@@ -1,15 +1,31 @@
 import sys;sys.stdin=open('input2.txt','r')
 
+from heapq import heappush, heappop
+
+def dijkstra():
+    pq = []
+    heappush(pq, (0, depart-1))
+    dist[depart-1] = 0
+    while pq:
+        cost, now = heappop(pq)
+        if dist[now] < cost:
+            continue
+        for nxt, ncost in a[now]:
+            ncost += cost
+            if dist[nxt] > ncost:
+                dist[nxt] = ncost
+                heappush(pq, (ncost, nxt))
+    print(dist[arrive-1])
+
 for tc in range(int(input())):
-    n = int(input())
-    scores = list(map(int, input().split()))
-    prob = [0]
-    check = [0]*(sum(scores)+1)
-    for score in scores:
-        for j in range(0, len(prob)):
-            temp = score + prob[j]
-            if not check[temp]:
-                check[temp] = 1
-                prob.append(temp)
-    print(f"#{tc+1} {sum(check)+1}")
-    
+    INF = float('inf')
+    n,m=map(int,input().split())
+    dist = [INF]*n
+    a = [[] for _ in range(n)]
+    for i in range(m):
+        u, v, w = map(int, input().split())
+        a[u-1].append([v-1, w])
+    depart, arrive =1,n
+    print(f'#{tc+1} ',end='')
+    dijkstra()
+
