@@ -14,3 +14,4 @@ for tc in range(int(input())):
     [print(*i) for i in grid]           
     # print(f'#{tc+1} {r}')
     print()
+print(2**20)
