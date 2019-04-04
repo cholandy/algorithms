@@ -1,41 +1,32 @@
 import sys;sys.stdin=open('input1.txt','r')
 
-def maxidx(a,b):
-    idx=0
-    for i in range(len(a)-1,-1,-1):
-        if a[i]==max(b):
-            idx=i
-            break
-    for j in range(len(b)):
-        if b[j]==max(b):
-            b.pop(j)
-            return idx
+def gethome(x,y,k):
+    ret=0
+    for i in range(x-k+1,x+k):
+        if 0<=i<n:
+            for j in range(y-k+1+abs(x-i),y+k-abs(x-i)):
+                if 0<=j<n and city[i][j]==1:
+                    ret+=1 
+    if ret*m<toco:return 0
+    else:return ret
 
- 
-
-for tc in range(int(input())):
-    num, swap = map(str,input().split())
-    cnt=int(swap)
-    maxnum=''.join(sorted(list(str(num)),reverse=True))
-    original=list(num)
-    max_checklist=list(num)
-    big_to_small=sorted(list(set(list(num))),reverse=True)
-    cc=0
-    while cnt>0:
-        if ''.join(original)!=maxnum:
-            MAX=str(big_to_small[cc])
-            key=False
-            midx=maxidx(original,max_checklist)
-            for i in range(len(original)):
-                if original[i]>original[midx]:continue
-                if original[i]==original[midx] and original[i]==MAX:break
-                if original[i]!=original[midx] and original[i]<MAX:
-                    original[i],original[midx]=original[midx],original[i]
-                    key=True
-                    break
-            cc+=1
-            if key:
-                cnt-=1
-                
-                    
-    print('#{} {}'.format(tc+1,''.join(original)))
+for t in range(int(input())):
+    n,m=map(int,input().split())
+    city=[list(map(int,input().split())) for i in range(n)]
+    home_cnt=sum(city[i][j] for i in range(n) for j in range(n) if city[i][j]==1)
+    cost=[i**2+(i+1)**2 for i in range(21) if home_cnt*m >i**2+(i+1)**2]
+    ans=0
+    
+    k_cnt=len(cost)
+    if k_cnt==21:
+        print("#{} {}".format(t+1, home_cnt))
+        continue
+    for k in range(k_cnt-1,-1,-1):
+        toco=cost[k]
+        for i in range(n):
+            for j in range(n):
+                ret=gethome(i,j,k+1)
+                if ret>ans:
+                    ans=ret
+    print("#{} {}".format(t+1, ans))
+    
