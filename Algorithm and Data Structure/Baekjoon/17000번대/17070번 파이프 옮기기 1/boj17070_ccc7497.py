@@ -1,3 +1,5 @@
+import sys;sys.stdin=open('input2.txt','r')
+
 N = int(input())
 data = []
 for _ in range(N):
@@ -9,8 +11,9 @@ for i in range(N):
         if i == 0 and j == 1:
             continue
         if data[i][j] == 0:
-            result[i][j][0] = result[i][j - 1][0] + result[i][j - 1][2]
-            result[i][j][1] = result[i - 1][j][1] + result[i - 1][j][2]
-            if data[i - 1][j] == 0 and data[i][j - 1] == 0:
-                result[i][j][2] = result[i - 1][j - 1][0] + result[i - 1][j - 1][1] + result[i - 1][j - 1][2]
-print(sum(result[N - 1][N - 1]))
+            result[i][j][0] = result[ i ][j-1][0] + result[ i ][j-1][2]
+            result[i][j][1] = result[i-1][ j ][1] + result[i-1][ j ][2]
+            if data[i-1][j] == 0 and data[i][j-1] == 0:
+                result[i][j][2] = result[i-1][j-1][0] + result[i-1][j-1][1] + result[i-1][j-1][2]
+print(sum(result[N-1][N-1]))
+[print(*i) for i in result]
