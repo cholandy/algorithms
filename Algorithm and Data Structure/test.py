@@ -1,56 +1,67 @@
-import sys;sys.stdin=open('input1.txt','r')
 import itertools
- 
- 
-def check():
-    global D, W, K
-    for col in range(W):
-        flag = 0
-        count = 1
-        for row in range(D - 1):
-            if D - row < K and count == 1:
-                break
-            if data[row][col] == data[row + 1][col]:
-                count += 1
-            else:
-                count = 1
-            if count == K:
-                flag = 1
-                break
-        if not flag:
+import sys;sys.stdin=open('input1.txt','r')
+
+
+def line_check(li, k):
+    cnt = 1
+
+    for i in range(len(li)-1):
+        if li[i] == li[i+1]:
+            cnt += 1
+        else:
+            cnt = 1
+
+        if cnt >= k:
+            return True
+    return False
+
+
+def check(li):
+    for w in range(W):
+        if not line_check([li[d][w] for d in range(D)], K):
             return False
     return True
- 
- 
-def solve(depth):
-    global D, W, result, data
-    if depth == D:
-        result = min(result, D)
-        return
- 
-    comb = itertools.combinations(idx, depth)
-    for c in comb:
-        for j in range(2):
-            for i in c:
-                data[i] = drug[j]
-            if check():
-                result = min(result, depth)
-                return
-            data = raw[:]
 
-for t in range(int(input())):
+
+def chemical(li_combs):
+    for i in range(len(li_combs)):
+        comb = list(li_combs[i])
+
+        for q in range(1<<len(comb)):
+            subsets = []
+            for p in range(len(comb)):
+                if q & 1<<p:
+                    subsets.append(p)
+
+            temp_li = li[:]
+            for q in range(len(comb)):
+                if q in subsets:
+                    temp_li[comb[q]] = [1]*W
+                else:
+                    temp_li[comb[q]] = [0]*W
+            if check(temp_li):
+                return True
+    return False
+
+
+T = int(input())
+
+for t in range(T):
     D, W, K = map(int, input().split())
-    raw = [list(map(int, input().split())) for _ in range(D)]
-    data = raw[:]
-    drug = [[0]*W, [1]*W]
-    idx = list(range(D))
-    visited = [0] * D
-    result = float('inf')
-    if check() or K <= 1:
-        result = 0
-    else:
-        for i in range(1, D + 1):
-            if i >= result:
+    li = []
+    result = 0
+    tf = True
+
+    for d in range(D):
+        li.append(list(map(int, input().split())))
+
+    if not check(li):
+        for i in range(1, K):
+            if chemical(list(itertools.combinations(range(D), i))):
+                result = i
+                tf = False
                 break
-            solve(i)
-    print('#{} {}'.format(t+1, result))
+        if tf:
+            result = K
+
+    print("#{} {}".format(t+1, result))
