@@ -1,16 +1,78 @@
 import sys;sys.stdin=open('input2.txt','r')
-from collections import deque
-from itertools import *
-
-maps=[list(map(int,input().split())) for _ in range(10)]
-
-possible_list=[[i,j] for i in range(10) for j in range(10) if maps[i][j]]
+# from collections import deque
+# from copy import deepcopy
 
 
-for candidates in possible_list:
-    i,j=candidates
-    for i in range(6):
-        for j in range(6):
-            for x,y in sorted(set(list(permutations(range(i,i+5),2))+list(combinations_with_replacement(range(j,j+5),2)))):
-                if maps[x][y]:break
-            print("Yeah")
+# def check(x,y,nbyn):
+#     for i,j in nbyn:
+#         nx,ny=i+x,j+y
+#         if 0<=nx<10 and 0<=ny<10 and nmaps[nx][ny]:continue
+#         else: return (False, nmaps)
+#     for i,j in nbyn:
+#         nx,ny=i+x,j+y
+#         if 0<=nx<10 and 0<=ny<10 and nmaps[nx][ny]:
+#             nmaps[nx][ny]=0
+#     return (True, nmaps)
+
+
+
+# maps=[list(map(int,input().split())) for _ in range(10)]
+# possible_list=[[i,j] for i in range(10) for j in range(10) if maps[i][j]]
+# checklist=[ [ [i,j] for i in range(k) for j in range(k) ] for k in range(0,6)]
+# remain=[5]*5
+# import sys;sys.stdin=open('input2.txt','r')
+
+def dfs(pos, cnt):
+    global mincnt, blocks, maps
+    if 0 <= mincnt <= cnt:
+        return
+    if not pos:
+        if cnt < mincnt or mincnt < 0:
+            mincnt = cnt
+    flag = 0
+    for y in range(10):
+        for x in range(10):
+            if maps[y][x]:
+                flag += 1
+                break
+        if maps[y][x]:
+            break
+    if not flag:
+        return
+    for i in range(5, 0, -1):
+        if blocks[i-1]:
+            ey = y + i
+            ex = x + i
+            changed = []
+            can = True
+            for ny in range(y, ey):
+                for nx in range(x, ex):
+                    if 0 <= ny < 10 and 0 <= nx < 10:
+                        if maps[ny][nx]:
+                            changed.append((ny, nx))
+                            maps[ny][nx] = 0
+                        else:
+                            can = False
+                            break
+                    else:
+                        can = False
+                        break
+                if not can:
+                    break
+            if can:
+                blocks[i-1] -= 1
+                pos -= i ** 2
+                dfs(pos, cnt+1)
+                pos += i ** 2
+                blocks[i-1] += 1
+            for j in changed:
+                maps[j[0]][j[1]] = 1
+
+for tc in range(int(input())):
+    maps = [list(map(int, input().split())) for _ in range(10)]
+    pos =sum(maps[i][j] for i in range(10) for j in range(10))
+    blocks = [5]*5
+    mincnt = -1
+    dfs(pos, 0)
+    print("#{}".format(tc+1),end=' ')
+    print(mincnt)

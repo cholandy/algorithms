@@ -1,5 +1,8 @@
 import copy
+import sys;sys.stdin=open('input1.txt','r')
+from time import time
 
+a=time()
 
 def moving(ls, nsn):
     _ls = [[0] * M] + ls[:N-1]
@@ -41,16 +44,20 @@ def positioning(idx, s):
         positioning(idx+1, i)
         subset.pop()
 
+for tc in range(int(input())):
+    N, M, D = map(int, input().split())
+    maps = [list(map(int, input().split())) for _ in range(N)]
+    maxcnt = 0
+    subset = []
+    shoot = []
+    for i in range(1, D+1):
+        for x in range(0-D, D+1):
+            for y in range(1, D+1):
+                if y + abs(x) == i:
+                    shoot.append((y, x))
+    positioning(0, -1)
+    print("#{} {}".format(tc+1,maxcnt))
 
-N, M, D = map(int, input().split())
-maps = [list(map(int, input().split())) for _ in range(N)]
-maxcnt = 0
-subset = []
-shoot = []
-for i in range(1, D+1):
-    for x in range(0-D, D+1):
-        for y in range(1, D+1):
-            if y + abs(x) == i:
-                shoot.append((y, x))
-positioning(0, -1)
-print(maxcnt)
+
+b=time()
+print(b-a)
