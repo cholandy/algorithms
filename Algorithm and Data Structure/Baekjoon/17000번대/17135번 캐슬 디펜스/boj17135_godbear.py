@@ -2,7 +2,7 @@ import copy
 import sys;sys.stdin=open('input1.txt','r')
 from time import time
 
-a=time()
+
 
 def moving(ls, nsn):
     _ls = [[0] * M] + ls[:N-1]
@@ -56,8 +56,8 @@ for tc in range(int(input())):
                 if y + abs(x) == i:
                     shoot.append((y, x))
     positioning(0, -1)
-    print("#{} {}".format(tc+1,maxcnt))
-
-
-b=time()
-print(b-a)
+    # print("#{} {}".format(tc+1,maxcnt))
+    if tc in [11, 17, 20, 62, 71, 105, 110, 146]:
+        print(N,M,D)
+        [print(*i) for i in maps]
+    else: continue
