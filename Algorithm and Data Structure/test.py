@@ -1,129 +1,35 @@
 import sys; sys.stdin=open('input.txt','r')
 
-R,C,T = map(int, input().split())
+r,c,m = map(int, input().split())
+sea = [[0 for _ in range(c)] for _ in range(r)]
+if m==0: print(0);exit()
 
-first, second = 0, 0
-home = []
-for i in range(R):
-    a = list(map(int, input().split()))
+direc = [0,[-1,0],[1,0],[0,1],[0,-1]]
+change = [0,2,1,4,3]
 
-    for j in range(C):
-        if a[j] == -1:
-            if first ==0:
-                first=(i,j)
-            elif first:
-                second=(i,j)
-    home.append(a)
+for _ in range(m):
+    r,c,s,d,z = map(int, input().split())
+    sea[r-1][c-1] = [s,d,z]
+    
 
-# spread 부분은 rebas님의 코드를 참고하였습니다.
-def spread():
-    global home
-    temp = [ [0 for _ in range(C)]  for q in range(R) ] 
-    for x in range(R):
-        for y in range(C):
-            if home[x][y]>4:
-                p = home[x][y]//5
-                for dx, dy in (0,1),(0,-1),(1,0),(-1,0):
-                    nx,ny = x+dx, y+dy 
-                    if -1<nx<R and -1<ny<C and home[nx][ny] !=-1:
-                        temp[nx][ny]+=p
-                        home[x][y]-=p
-    for x in range(R):
-        for y in range(C):
-            home[x][y] += temp[x][y]
-# spread 부분은 rebas님의 코드를 참고하였습니다.
+# [print(*i) for i in sea ]
 
-def wind1():
-    global home
-    sx,sy = first[0]-1, first[1] 
-    home[sx][sy]=0
-    while 1:
-        nx, ny = sx-1, sy
-        if nx>-1:
-            home[sx][sy]=home[nx][ny]
-            home[nx][ny]==0
-            sx,sy=nx,ny
-        else:
-            break
-    while 1:
-        nx, ny = sx, sy+1
-        if C>ny:
-            home[sx][sy]=home[nx][ny]
-            home[nx][ny]==0
-            sx,sy=nx,ny
-        else:
-            break
-    while 1:
-        nx, ny = sx+1, sy
-        if nx<first[0]+1:
-            home[sx][sy]=home[nx][ny]
-            home[nx][ny]==0
-            sx,sy=nx,ny
-        else:
-            break
-    while 1:
-        nx, ny = sx, sy-1
-        if 0<ny:
-            home[sx][sy]=home[nx][ny]
-            home[nx][ny]==0
-            sx,sy=nx,ny
-            if ny==1:
-                home[nx][ny]=0
-        else:
-            break 
-    return
+def fishing(cnt):
+    for i in range(r):
+        if sea[r][cnt]:
+            return sea[r][cnt][2]
 
-def wind2():
-    global home
-    sx, sy = second[0]+1, second[1]
-    home[sx][sy]=0
-    while 1:
-        nx, ny = sx+1, sy
-        if nx<R:
-            home[sx][sy]=home[nx][ny]
-            home[nx][ny]==0
-            sx,sy=nx,ny
-        else:
-            break
-    while 1:
-        nx, ny = sx, sy+1
-        if ny<C:
-            home[sx][sy]=home[nx][ny]
-            home[nx][ny]==0
-            sx,sy=nx,ny
-        else:
-            break
-    while 1:
-        nx, ny = sx-1, sy
-        if nx > second[0]-1:
-            home[sx][sy]=home[nx][ny]
-            home[nx][ny]==0
-            sx,sy=nx,ny
-        else:
-            break
-    while 1:
-        nx, ny = sx, sy-1
-        if 0<ny:
-            home[sx][sy]=home[nx][ny]
-            home[nx][ny]==0
-            sx,sy=nx,ny
-            if ny==1:
-                home[nx][ny]=0
-        else:
-            break
-    return
-# print('This is original')
-# [print(*i) for i in home]
-# print()
+def move():
+    for i in range(r):
+        for j in range(c):
+            if sea[r][c]:
+                go()
 
-while T:
-    spread()
-    # print(f'Spread {T}')
-    # [print(*i) for i in home]
-    # print()
-    wind1()
-    wind2()
-    T-=1
+catch = 0
+cnt = -1
+while cnt<c:
+    cnt+=1
+    catch += fishing(cnt)
+    move()
 
-print(sum(map(sum, home)) +2)
-
+print(catch)
