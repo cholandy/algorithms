@@ -1,7 +1,7 @@
 import sys; sys.stdin=open('input.txt','r')
 
-r,c,m = map(int, input().split())
-sea = [[0 for _ in range(c)] for _ in range(r)]
+R,C,m = map(int, input().split())
+sea = [[0]*C for _ in range(R)]
 if m==0: print(0);exit()
 
 direc = [0,[-1,0],[1,0],[0,1],[0,-1]]
@@ -12,18 +12,44 @@ for _ in range(m):
     sea[r-1][c-1] = [s,d,z]
     
 
-# [print(*i) for i in sea ]
+[print(*i) for i in sea ]
 
 def fishing(cnt):
-    for i in range(r):
+    for i in range(R):
         if sea[r][cnt]:
             return sea[r][cnt][2]
+    return 0
 
 def move():
-    for i in range(r):
-        for j in range(c):
-            if sea[r][c]:
-                go()
+    global sea
+    tmp = [ [ [] for _ in range(C) ] for _ in range(R)   ]
+    
+    for i in range(R):
+        for j in range(C):
+            if sea[i][j]:
+                v=sea[i][j][0]
+                x,y = i,j
+                while v:
+                    dx, dy = direc[sea[i][j][1]]
+                    nx, ny = x+dx, y+dy 
+                    if -1<nx<R and -1<ny<C:
+                        x,y = nx,ny
+                        v-=1
+                        continue
+                    else:
+                        sea[i][j][1] = change[sea[i][j][1]]
+                tmp[x][y].append(sea[i][j])
+                sea[i][j] = 0
+                [print(*i) for i in sea ]
+                [print(*i) for i in tmp ]
+    for i in range(R):
+        for j in range(C):
+            if len(tmp[i][j])>1:
+                big = tmp[i][j][0]
+                for e in range(len(tmp[i][j])):
+                    if tmp[i][j][e][2] > big[2]:
+                        big = tmp[i][j][e]
+                sea[i][j] = big
 
 catch = 0
 cnt = -1
