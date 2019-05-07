@@ -1,66 +1,32 @@
 import sys; sys.stdin=open('input.txt','r')
+from collections import deque 
 
-R,C,m = map(int, input().split())
-sea = [[0]*C for _ in range(R)]
-if m==0: print(0);exit()
+N,M = map(int, input().split())
+grid = [list(map(int, input().split())) for _ in range(N)]
+ans = float('inf')
+def print_grid(grid):
+    return [print(*i) for i in grid]
 
-direc = [0,[-1,0],[1,0],[0,1],[0,-1]]
-change = [0,2,1,4,3]
+def checkblock(grid):
+    cnt = 0
+    check = [[0]*N for i in range(N)]
+    for i in range(N):
+        for j in range(N):
+            if grid[i][j] in [0,2] and check[i][j]==0:
+                cnt+=1
+                q = deque()
+                q.append((i,j))
+                check[i][j]=1
+                while q:
+                    x,y = q.popleft()
+                    for dx,dy in (1,0), (-1,0), (0,1), (0,-1):
+                        nx,ny = x+dx, y+dy
+                        if 0<=nx<N and 0<=ny<N and grid[nx][ny]!=1 and check[nx][ny]!=1:
+                            check[nx][ny]=1
+                            q.append((nx,ny))
+    return cnt 
+# print_grid(grid)
 
-for _ in range(m):
-    r,c,s,d,z = map(int, input().split())
-    sea[r-1][c-1] = [s,d,z]
-    
+if checkblock(grid) > M:
+    print(-1);exit()
 
-# [print(*i) for i in sea ]
-
-def fishing(cnt):
-    global sea
-    for i in range(R):
-        if sea[i][cnt]:
-            shark = sea[i][cnt][2]
-            sea[i][cnt]=0
-            return shark
-    return 0
-
-def move():
-    global sea
-    tmp = [ [ [] for _ in range(C) ] for _ in range(R)   ]
-    
-    for i in range(R):
-        for j in range(C):
-            if sea[i][j]:
-                v=sea[i][j][0]
-                x,y = i,j
-                while v:
-                    dx, dy = direc[sea[i][j][1]]
-                    nx, ny = x+dx, y+dy 
-                    if -1<nx<R and -1<ny<C:
-                        x,y = nx,ny
-                        v-=1
-                        continue
-                    else:
-                        sea[i][j][1] = change[sea[i][j][1]]
-                tmp[x][y].append(sea[i][j])
-                sea[i][j] = 0
-    # [print(*i) for i in sea ]
-    # [print(*i) for i in tmp ]
-    for i in range(R):
-        for j in range(C):
-            if len(tmp[i][j])>1:
-                big = tmp[i][j][0]
-                for e in range(len(tmp[i][j])):
-                    if tmp[i][j][e][2] > big[2]:
-                        big = tmp[i][j][e]
-                sea[i][j] = big
-            elif len(tmp[i][j])==1:
-                sea[i][j] = tmp[i][j][0] 
-
-catch = 0
-cnt = -1
-while cnt<C-1:
-    cnt+=1
-    catch += fishing(cnt)
-    move()
-
-print(catch)
