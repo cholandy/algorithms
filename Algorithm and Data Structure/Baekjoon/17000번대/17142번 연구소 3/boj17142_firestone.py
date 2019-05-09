@@ -1,3 +1,5 @@
+import sys; sys.stdin=open('input.txt','r')
+
 from collections import deque 
 from itertools import combinations 
 
@@ -15,37 +17,31 @@ def grid_copy(grid, starters):
         tmp[x][y]=0
     for i in range(N):
         for j in range(N):
-            # 1은 벽이니깐 '-'로 바꾼다.
             if grid[i][j]==1:
-                tmp[i][j]=0
+                tmp[i][j]=-2
+            elif grid[i][j]==2 and tmp[i][j]:
+                tmp[i][j]=-3
     return tmp
 
 twos = [(i,j) for i in range(N) for j in range(N) if grid[i][j]==2]
 
-
-def check(tmp):
-    for i in range(N):
-        for j in range(N):
-            if tmp[i][j]==-1:
-                return False
-    return True
-
 for starters in combinations(twos, M):
     tmp = grid_copy(grid, starters)
-    # print_grid(tmp)
     q=deque()
     for i in starters:
-        q.append(i)
+        x,y=i
+        q.append((x,y,0))
     while q:
-        x,y = q.popleft()
+        x,y,d = q.popleft()
         for dx,dy in (1,0),(-1,0),(0,1),(0,-1):
             nx,ny=x+dx,y+dy
+            if 0<=nx<N and 0<=ny<N and tmp[nx][ny]==-3:
+                tmp[nx][ny]=0
+                q.append((nx,ny,d+1))
             if 0<=nx<N and 0<=ny<N and tmp[nx][ny]==-1:
-                tmp[nx][ny]=tmp[x][y] + abs(nx-x) + abs(ny-y)
-                q.append((nx,ny))
-    if check(tmp):
+                tmp[nx][ny]=d+1
+                q.append((nx,ny,d+1))
+    if not any(True for i in range(N) for j in range(N) if tmp[i][j]==-1):
         ans = min(ans, max(map(max, tmp)))
-if ans==9999:
-    print(-1)
-else:
-    print(ans)
+
+print(ans if ans<9999 else -1)
