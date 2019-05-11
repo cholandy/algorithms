@@ -1,58 +1,69 @@
-import sys;sys.stdin=open('input.txt','r')
-
-mat = [list(map(int, input().split())) for _ in range(10)]
-papers=[0,5,5,5,5,5]
-
-points_cnt=len([1 for i in range(10) for j in range(10) if mat[i][j]])
-ans = 100
-
-def dfs(point_cnt, cnt, grid):
-    global ans
-    if point_cnt==0:
-        ans=min(cnt, ans)
-        return
-    if cnt>=ans:return
-    x,y=-1,-1
-    for i in range(10):
-        for j in range(10):
-            if grid[i][j]==1:
-                x,y=i,j
-                break
-        if y!=-1:break
-    if x==-1:return
-    for i in range(5,0,-1):
-        if papers[i]==0:continue
-        else:
-            flag = 1
-            change=[]
-            fx,fy = x+i, y+i
-            if fx>10 or fy>10: continue
-            for a in range(x,fx):
-                for b in range(y,fy):
-                    if grid[a][b]==0:
-                        flag=0
-                        break
-                    else:
-                        change.append((a,b))
-                if flag==0:
-                    change.clear()
-                    break
-            if flag:
-                for o,p in change:
-                    grid[o][p]=0
-                cnt+=1
-                papers[i] -= 1
-                point_cnt-=i**2
-                dfs(point_cnt, cnt, grid)
-                point_cnt+=i**2
-                papers[i]+=1
-                cnt-=1
-                for o,p in change:
-                    grid[o][p]=1
-
-dfs(points_cnt, 0, mat)
-print(ans if ans!=100 else -1)
-
-
-
-
+from collections import deque
+import sys;sys.stdin=open('input.txt','r') 
+T = int(input())
+for test_case in range(1, T + 1):
+ 
+    N, M, K = map(int, input().split())
+    arr = []
+ 
+    dxy = [[0, 1], [0, -1], [1, 0], [-1, 0]]
+ 
+    for n in range(N):
+        arr += [list(map(int, input().split()))]
+ 
+    stem_cells = [[] for _ in range(11)]
+ 
+    already_filled = [[False for _ in range(M + 2 * K + 2)] for _ in range(N + 2 * K + 2)]
+ 
+    for i in range(N):
+        for j in range(M):
+            if arr[i][j] > 0:
+                stem_cells[arr[i][j]] += [(i, j)]
+ 
+    cells = deque()
+    life_span = deque()
+    activate_time = deque()
+ 
+    for idx in range(10, 0, -1):
+        if len(stem_cells[idx]) > 0:
+            for location in stem_cells[idx]:
+                already_filled[location[0]][location[1]] = True
+                cells.append(location)
+                life_span.append(idx)
+                activate_time.append(idx)
+ 
+    for k in range(K):
+ 
+        original_cells = len(cells)
+ 
+        for R in range(original_cells):
+ 
+            C = cells.popleft()
+            L = life_span.popleft()
+            IA = activate_time.popleft()
+ 
+            if IA > 0:
+                cells.append((C[0], C[1]))
+                life_span.append(L)
+                activate_time.append(IA - 1)
+ 
+            elif IA == 0:
+                for delta in dxy:
+                    if not already_filled[C[0] + delta[0]][C[1] + delta[1]]:
+                        already_filled[C[0] + delta[0]][C[1] + delta[1]] = True
+                        cells.append((C[0] + delta[0], C[1] + delta[1]))
+                        life_span.append(L)
+                        activate_time.append(L)
+ 
+                if L - 1 > 0:
+                    cells.append((C[0], C[1]))
+                    life_span.append(L - 1)
+                    activate_time.append(-1)
+ 
+            elif IA < 0:
+                if L - 1 > 0:
+                    cells.append((C[0], C[1]))
+                    life_span.append(L - 1)
+                    activate_time.append(-1)
+ 
+    print("#{} {}".format(test_case, len(cells)))
