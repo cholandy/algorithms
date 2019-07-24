@@ -1,16 +1,18 @@
 #include <stdio.h>
 
+struct TreeNode {
+    int data;
+    struct TreeNode* parent;
+};
+
+void printLabels1(struct TreeNode* root) {
+    printf("%d\n", root->data);
+    printf("%s", root->parent);
+}
+
 int main()
 {
-    int *numPtr1;
-    int **numPtr2;
-    int num1=10;
-
-    numPtr1 = &num1;
-    numPtr2 = &numPtr1;
-
-    printf("%d\n",**numPtr2);
-   
-    // 438page
+    struct TreeNode tn1 = {10, NULL};
+    printLabels1(&tn1);
     return 0;
 }
