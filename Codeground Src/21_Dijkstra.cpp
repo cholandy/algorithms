@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
-#define MAX 55
+
+#define MAX 1001 
 
 typedef struct node {
     struct node* next;
@@ -19,6 +20,7 @@ void pq_push(int x, int cost);
 
 int N, M, u, v, d, S;
 node *head[MAX];
+
 int* Dijkstra(int start) {
     int *dist = (int*)malloc(sizeof(int)*(N+1));
     for (int i = 1; i <= N; i++) {
