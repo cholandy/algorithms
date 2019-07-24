@@ -1,7 +1,7 @@
 #include <stdio.h>
 // #include <stdbool.h>
 
-#define MAX 5005
+#define MAX 10000001
 
 int d[MAX], n;
 
@@ -25,15 +25,16 @@ bool bsearch(int val) {
 }
 
 int main() {
+	freopen("output.txt", "r", stdin);
 	scanf("%d", &n);
 	for (int i = 0; i < n; i++)
 		scanf("%d", &d[i]);
 
-	// sorting
-	for (int i = 0; i < n; i++)
-		for (int j = i + 1; j < n; j++)
-			if (d[i] > d[j]) 
-				swap(&d[i], &d[j]);
+	// // sorting
+	// for (int i = 0; i < n; i++)
+	// 	for (int j = i + 1; j < n; j++)
+	// 		if (d[i] > d[j]) 
+	// 			swap(&d[i], &d[j]);
 			
 
 	int query; scanf("%d", &query);
