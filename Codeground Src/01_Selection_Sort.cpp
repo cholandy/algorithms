@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-#define MAX 10001
+#define MAX 1000000
 
 int arr[MAX];
 int N;
@@ -30,7 +30,7 @@ int main() {
     }
     selection_sort(arr, N);
     for (int i = 0; i < N; i++) {
-        printf("%d\n", arr[i]);
+        printf("%d ", arr[i]);
     }
     return 0;
 }

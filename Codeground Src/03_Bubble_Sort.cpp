@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-#define MAX 5005
+#define MAX 1000000
 
 int d[MAX];
 
@@ -28,7 +28,7 @@ int main()
 	}
 
 	for(int i = 0 ; i < n ; i++)
-		printf("%d\n", d[i]);
+		printf("%d ", d[i]);
 
 	return 0;
 }

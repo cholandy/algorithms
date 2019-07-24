@@ -28,8 +28,9 @@ void quickSort(int *arr, int left, int right) {
     if (right > pivot) quickSort(arr, pivot + 1, right);
 }
 int N;
-int arr[100010];
+int arr[100001];
 int main() {
+    freopen("input.txt","r",stdin);
     scanf("%d", &N);
     for (int i = 0; i < N; i++) {
         scanf("%d", &arr[i]);

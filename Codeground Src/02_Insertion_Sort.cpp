@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-#define MAX 5005
+#define MAX 1000000
 
 int d[MAX], n;
 
