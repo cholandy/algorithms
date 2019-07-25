@@ -1,27 +1,30 @@
 #include <stdio.h>
-#include <malloc.h>
-int pq = 1;
-int arr[10]={0,};
 
-int main() 
+
+void something(int** head, int a, int b){
+
+    printf("%p\n", head);
+    return;
+}
+
+
+int main()
 {
-    for (int i=0;i<10;i++) {
-        arr[i] = i;
+    int a[5]={1,2,3,4,5};
+    int b[5]={11,12,13,14,15};
+    int c[5]={21,22,23,24,25};
+
+    int* ap[3] = {a,b,c};
+
+    for (int i=0; i<3; i++) {
+        for (int j=0; j<5; j++) {
+            printf("%5d ", ap[i][j]);    
+        }
+        printf("\n"); 
     }
-    for (int i=0;i<10;i++) {
-        printf("%d ", arr[i]);
-    }    
-    printf("\n");
-
-
-    arr[pq]=arr[--pq];
-
-
-    for (int i=0;i<10;i++) {
-        printf("%d ", arr[i]);
+    // printf("%p\n%p\n%p\n", a,ap,ap[1]);
+    for (int i=0;i<3;i++){
+        something(&ap[i],1,2);
     }
-    printf("\n");
-
-    printf("%d\n", pq);
     return 0;
 }
