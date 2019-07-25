@@ -93,7 +93,9 @@ void doUserImplementation(int * guess) {
             }
         }
         // valid_ball[bestguess]가 최선의 선택임
-        for (int i = 0; i < 4; i++) guess[i] = bestguess[i];
+        for (int i = 0; i < 4; i++) {
+            guess[i] = bestguess[i];
+        }
         Result ret = query(guess); // 이 결과를 바탕으로 cand와 len을 갱신하자
         int beforelen = len;
         len = 0;
