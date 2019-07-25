@@ -11,10 +11,10 @@ int d; //정점 사이의 가중치(양수면 다익스트라)
 int S; //시작 정점의 번호
 
 typedef struct node {
-	struct node* next;
+	node* next;
 	int destination;
 	int cost;
-} node;
+}Node;
 node *adjacentlist[MAX];
 
 struct priority_que {
@@ -99,8 +99,10 @@ void pq_pop() {
 }
 
 void pq_push(int vertex, int cost) {
-	pq[++pq_t].cost = cost;
+	pq_t+=1;
+	pq[pq_t].cost = cost;
 	pq[pq_t].vertex = vertex;
+
 	for (int i = pq_t; i > 1; i /= 2) {
 		if (cost < pq[i / 2].cost) pq[i] = pq[i / 2];
 		else {
