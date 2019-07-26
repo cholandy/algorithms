@@ -23,9 +23,6 @@ struct priority_que {
 } pq[MAX*2], tmp;
 
 int pq_t; // 우선순위 큐의 탑
-void add(node** adjacentlist, int destination, int cost); //인접리스트로 전처리
-void pq_pop();
-void pq_push(int x, int cost);
 
 // Dijkstra Algorithms
 int* dijkstra(int start) {
