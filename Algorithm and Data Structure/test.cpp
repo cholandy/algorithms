@@ -1,12 +1,16 @@
-#include <bits/stdc++.h>
+#include <iostream>
+#include <string>
 
-vector<int> slice(const vector<int>& v, int a, int b) {
-    return vector<int>(v.begin()+a, v.begin()+b);
+
+using namespace std;
+
+void printString(const string& myString) {
+    cout << myString << endl;
 }
 
-void printPostOrder(const vector<int>& preorder, const vector<int>& inorder) {
-    const int N = preorder.size();
-    if (preorder.empty()) return;
-    const int root = preorder[0];
-    const int L = find(inorder.begin(), inorder.end(), root) - 
+int main() {
+    string someString = "Hello World!";
+    printString(someString);
+    printString("What the hell");
+    return 0;
 }
