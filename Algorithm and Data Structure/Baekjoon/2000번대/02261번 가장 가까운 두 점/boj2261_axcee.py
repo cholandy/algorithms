@@ -1,5 +1,5 @@
 
-import sys; input = lambda: sys.stdin.readline().rstrip()
+# import sys; input = lambda: sys.stdin.readline().rstrip()
 
 from math import inf
 
@@ -43,7 +43,7 @@ def solve(pts) :
     pts.sort(key = lambda p : p.x)
     return dnc(pts, 0, len(pts)-1)
 
-
-n = int(input())
-pts = [Point(*tuple(map(int,input().split()))) for i in range(n)]
-print(solve(pts))
+for i in range(int(input())):
+    n = int(input())    
+    pts = [Point(*tuple(map(int,input().split()))) for i in range(n)]
+    print(f'#{i+1} {solve(pts)}')
