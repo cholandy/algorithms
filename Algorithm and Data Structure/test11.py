@@ -1,61 +1,108 @@
-import sys;sys.stdin=open('input1.txt','r')
-import time
-from itertools import combinations
-start=time.time()
-## 박보윤꺼
-def killEnemy(x, y, D):
-    global N, M
-    distance = N*M
-    for j in range(M):
-        for i in range(x):
-            if fight[i][j] == 1 and (abs(i-x)+abs(j-y) <= D):
-                if distance > (abs(i-x)+abs(j-y)):
-                    distance = abs(i-x)+abs(j-y)
-                    ans = i, j
-    if distance == N*M:
-        return False
-    else:
-        return ans
+# 문제 1
+import collections 
+message_num, consumer_num = map(int,input().split())
+times_Q = collections.deque()
+for i in range(message_num):
+    times_Q.append(int(input()))
+total =0
+cons=[0 for i in range(consumer_num)]
 
-for tc in range(int(input())):
-    N, M, D = map(int, input().split())
-    fight = []
-    for _ in range(N):
-        fight.append(list(map(int, input().split())))
-    fight.append([0]*M)
-    maxkill = 0
-    for comb in combinations(range(M), 3):
-        kill = 0
-        a = [N, comb[0]]
-        b = [N, comb[1]]
-        c = [N, comb[2]]
-        killedList = []
-        for times in range(N):
-            ae = killEnemy(a[0], a[1], D)
-            be = killEnemy(b[0], b[1], D)
-            ce = killEnemy(c[0], c[1], D)
-            if ae != False:
-                if fight[ae[0]][ae[1]] == 1:
-                    fight[ae[0]][ae[1]] = 0
-                    kill += 1
-                    killedList.append([ae[0], ae[1]])
-            if be != False:
-                if fight[be[0]][be[1]] == 1:
-                    fight[be[0]][be[1]] = 0
-                    kill += 1
-                    killedList.append([be[0], be[1]])
-            if ce != False:
-                if fight[ce[0]][ce[1]] == 1:
-                    fight[ce[0]][ce[1]] = 0
-                    kill += 1
-                    killedList.append([ce[0], ce[1]])
-            a[0] -= 1
-            b[0] -= 1
-            c[0] -= 1
-        if maxkill < kill:
-            maxkill = kill
-        for k in killedList:
-            fight[k[0]][k[1]] = 1
-    print(maxkill)
-finish=time.time()
-print(finish-start)
+while len(times_Q):
+    key = False
+    for i in range(len(cons)):
+        if cons[i] == 0:
+            cons[i] = times_Q.popleft()
+        if len(times_Q) == 0:
+            key = True
+            break
+    if key: break
+    for i in range(len(cons)):
+        cons[i] -= 1
+    total +=1
+
+total += max(cons)
+print(total)
+
+
+# 문제 2
+import itertools 
+a=list(map(int, input().split()))
+a.sort()
+k = int(input())-1
+cnt = 0
+for i in itertools.permutations(a):
+    if k == cnt:
+        print(*i, sep="")
+        break
+    else:
+        cnt +=1
+        continue
+
+# 문제 3
+n = int(input())
+ans = 0
+board = [list(0 for _ in range(150)) for _ in range(1000)]
+# [print(*i) for i in board]
+for i in range(n):
+    a ,b = map(int,input().split())
+    if sum(board[ans][a:b]) == 0:
+        board[ans][a:b] = [1] * (b-a)
+    else:
+        ans +=1
+        board[ans][a:b] = [1]*(b-a)
+print(ans+1)
+
+# 문제 4
+n = int(input())
+space = list(map(int,input().split()))
+ans = [0 for _ in range(n)]
+getSeat = []
+for i in range(n):
+    if space[i] == 1:
+        getSeat.append(i)
+for i in range(n):
+    if space[i] == 1:
+        continue
+    temp = []
+    if space[i] == 0:
+        for j in range(len(getSeat)):
+            anw = abs(getSeat[j] - i)
+            temp.append(anw)
+        ans[i] = min(temp)
+print(max(ans))
+
+# 문제 5
+n, m = map(int, input().split())
+a, b = map(int, input().split())
+mat = [list(0 for _ in range(n)) for i in range(m)]
+if a < 0 or a > m or b < 0 or b > n:
+    print("fail")
+else:
+    print(a+b)
+    import math
+    ans = math.factorial(a+b) / math.factorial(a) / math.factorial(b)
+    print(int(ans))
+
+# 문제 6
+
+
+
+# 문제 1
+import collections 
+def solution(record):
+    answer = []
+    temp = collections.deque()
+    for i in record:
+        if i in ["SAVE", "DELETE"] and len(answer) and len(temp) == 0:
+            continue
+        if i == "SAVE" and len(temp):
+            while len(temp):
+                answer.append(temp.popleft())
+        elif i == "DELETE" and len(temp):
+            temp.pop()
+        else:
+            instruct, mail = i.split(" ")
+            temp.append(mail)
+    return answer
+
+# 문제 2
