@@ -1,16 +1,17 @@
 #include <iostream>
 #include <string>
 
-
 using namespace std;
 
-void printString(const string& myString) {
-    cout << myString << endl;
-}
-
-int main() {
-    string someString = "Hello World!";
-    printString(someString);
-    printString("What the hell");
+int main(void)
+{
+    int test_case;
+    freopen("input.txt","r", stdin);
+    cin >> test_case;
+    for (int T = 0; T < test_case; T++) {
+        int a,b,c;
+        cin >> a >> b >> c;
+        cout << a << " " << b<< " " << c << endl;
+    }
     return 0;
 }

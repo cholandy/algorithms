@@ -24,7 +24,7 @@ node *head[MAX];
 int* Dijkstra(int start) {
     int *dist = (int*)malloc(sizeof(int)*(N+1));
     for (int i = 1; i <= N; i++) {
-        dist[i] = -1;
+        dist[i] = -1; 
     }
     // first : dist , second : vertex_pos
     dist[start] = 0;
