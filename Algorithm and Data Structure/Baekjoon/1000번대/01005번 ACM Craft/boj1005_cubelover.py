@@ -1,6 +1,7 @@
-import sys
-input = sys.stdin.readline
-sys.setrecursionlimit(10000)
+# import sys
+# input = sys.stdin.readline
+# sys.setrecursionlimit(10000)
+
 for _ in range(int(input())):
     n, m = map(int, input().split())
     a = list(map(int, input().split()))
