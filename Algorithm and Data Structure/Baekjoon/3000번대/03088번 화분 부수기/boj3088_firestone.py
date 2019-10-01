@@ -1,18 +1,14 @@
 N = int(input())
-arr = [[0, 0, 0] for _ in range(N)]
-check = [False] * 1001001  # 처음에는 안 깨졌다.
-ans, val = 0, 0
-
+check = [0] * 1001001
+ans = 0
 for i in range(N):
     points = list(map(int, input().split()))
-    flag = True
+    flag = 1
     for j in range(3):
-        arr[i][j] = points[j]
-        val = arr[i][j]
-        if check[val]:
-            flag = False
+        if check[points[j]]:
+            flag = 0
         else:
-            check[val] = True
+            check[points[j]] = 1
     if flag:
         ans += 1
 print(ans)
