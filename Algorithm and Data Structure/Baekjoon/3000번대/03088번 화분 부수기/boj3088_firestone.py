@@ -1,22 +1,18 @@
-from collections import deque
 N = int(input())
-arr = deque()
-check = []
+arr = [[0, 0, 0] for _ in range(N)]
+check = [False] * 1001001  # 처음에는 안 깨졌다.
+ans, val = 0, 0
 
-
-def poss(a, b):
-    return set(a, b)
-
-
-for _ in range(N):
-    if _ == 0:
-        check = map(int, input().split())
-        continue
-    ans = 0
-    comp = []
-    comp = map(int, input().split())
-    if poss(check, comp) != None:
-        check = comp
-        continue
-    else:
-        arr.append(comp)
+for i in range(N):
+    points = list(map(int, input().split()))
+    flag = True
+    for j in range(3):
+        arr[i][j] = points[j]
+        val = arr[i][j]
+        if check[val]:
+            flag = False
+        else:
+            check[val] = True
+    if flag:
+        ans += 1
+print(ans)
