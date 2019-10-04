@@ -20,7 +20,7 @@ int main() {
     vector<int> x(n), y(n);
     long long sum_x = 0, sum_y=0;
     for (int i=0; i<n; i++) {
-        cin >> x[n] >> y[n];
+        cin >> x[i] >> y[i];
         sum_x += x[i];
         sum_y += y[i];
     }
@@ -36,15 +36,13 @@ int main() {
                 continue;
             }
             dfs(to, v);
-            long long here = max(0LL, max(sy[v] - sx[v], (sum_y - sy[v]) - (sum_x - sx[v])));
+            long long here = max(0LL, max(sy[to] - sx[to], (sum_y - sy[to]) - (sum_x - sx[to])));
             ans += here * cost;
             sx[v] += sx[to];
-            ;sy[v] += sy[to];
+            sy[v] += sy[to];
         }
     };
     dfs(0, -1);
     cout << ans << '\n';
-    
-
     return 0;
 }
