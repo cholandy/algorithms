@@ -75,7 +75,7 @@ int main() {
     }
     island();
     int ans = 0x7f7f77ff;
-    for (int i=0; i<n; ++i) {
+    for (int i=1; i<10000; ++i) {
         if (land[i].empty()) break;
         ans = min(ans, min_bridge(i));
     }
