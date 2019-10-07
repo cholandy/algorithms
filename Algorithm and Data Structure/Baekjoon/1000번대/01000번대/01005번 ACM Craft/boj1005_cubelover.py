@@ -1,6 +1,6 @@
-# import sys
-# input = sys.stdin.readline
-# sys.setrecursionlimit(10000)
+import sys
+input = sys.stdin.readline
+sys.setrecursionlimit(10000)
 
 for _ in range(int(input())):
     n, m = map(int, input().split())
@@ -12,6 +12,7 @@ for _ in range(int(input())):
         j, k = map(int, input().split())
         g[j - 1].append(k - 1)
         c[k - 1] += 1
+
     def f(x):
         c[x] = -1
         d[x] += a[x]
