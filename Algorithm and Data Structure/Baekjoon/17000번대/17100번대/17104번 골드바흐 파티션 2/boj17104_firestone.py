@@ -1,27 +1,21 @@
 from sys import stdin, stdout
+from collections import deque
 
-MAX = 1000000
-primes = [1 for _ in range(MAX+1)]
-# primes[0] = primes[1] = 0
+MAX = 1000001
+primes = []
+chk = [1]*MAX
+for i in range(2, MAX):
+    if chk[i] is 1:
+        primes.append(i)
+        for j in range(i*i, MAX, i):
+            chk[j] = 0
 
-for i in range(2, MAX+1):
-    if i*i > MAX:
-        break
-    if primes[i] is 1:
-        for j in range(i*i, MAX+1, i):
-            primes[j] = 0
-n = int(input())
-arr = []
-while n:
-    num = int(input())
-    ans = 0
-    for i in range(2, MAX+1):
-        if num-i >= 2 and i <= num-i:
-            if primes[num-i] == 1:
-                ans += 1
-        else:
-            break
-    arr.append(str(ans)+'\n')
-    n -= 1
+answers = [0]*MAX
+answers[4] = 1
+for i in range(1, 41538):
+    for j in range(i, len(primes)-i):
+        answers[primes[i]+primes[j]] += 1
 
-stdout.writelines(arr)
+for t in range(int(input())):
+    ans = answers[int(stdin.readline())]
+    stdout.write(str(ans)+'\n')
