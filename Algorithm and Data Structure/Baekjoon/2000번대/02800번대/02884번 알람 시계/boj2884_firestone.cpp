@@ -15,6 +15,5 @@ int main() {
     } else {
         printf("%d %d", h, m-45);
     }
-
     return 0;
 }
