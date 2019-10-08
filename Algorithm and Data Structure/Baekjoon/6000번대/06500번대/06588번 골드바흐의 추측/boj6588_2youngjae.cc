@@ -1,6 +1,6 @@
 #include <iostream>
 #include <vector>
-#define P pair<int,int>
+
 using namespace std;
  
 int primes[1000001];
