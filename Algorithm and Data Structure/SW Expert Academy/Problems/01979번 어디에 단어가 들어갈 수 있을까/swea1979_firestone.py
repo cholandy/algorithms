@@ -5,41 +5,32 @@ for _ in range(int(input())):
     ans = 0
     N, K = map(int, input().split())
     # print(N, K)
-    mat = [list(map(int, input().split())) for _ in range(N)]
-    # [print(*i) for i in mat]
+    mat = []
+    for i in range(N+2):
+        if i in [0, N+1]:
+            mat.append([0]*(N+2))
+        else:
+            a = [0] + list(map(int, input().split())) + [0]
+            mat.append(a)
+    rows = [[0]*N for _ in range(N)]
+    cols = [[0]*N for _ in range(N)]
+    [print(*i) for i in mat]
+    print()
+    for i in range(1, N+1):
+        for j in range(1, N+1):
+            if mat[i][j]:
+                if j+K < N+2:
+                    rows[i-1][j-1] = sum(mat[i][k] for k in range(j, j+K))
+                if i+K < N+2:
+                    cols[i-1][j-1] = sum(mat[k][j] for k in range(i, i+K))
     for i in range(N):
         for j in range(N):
-            if mat[i][j]:
-                # 가로로
-                if j+K <= N and 0 <= i < N:
-                    flag = True
-                    for k in range(j, j+K):
-                        if mat[i][k] == 0:
-                            flag = False
-                            break
-                    if flag:
-                        if j+K == N:
-                            ans += 1
-                            continue
-                        if j == 0 and mat[i][j+K] != 1:
-                            ans += 1
-                            continue
-                        if j-1 > -1 and mat[i][j-1] != 1 and j+K < N - 1 and mat[i][j+K] != 1:
-                            ans += 1
-                # 세로로
-                if i+K <= N and 0 <= j < N:
-                    flag = True
-                    for k in range(i, i+K):
-                        if mat[k][j] == 0:
-                            flag = False
-                            break
-                    if flag:
-                        if i == 0 and mat[i+K][j] != 1:
-                            ans += 1
-                            continue
-                        if i+K == N:
-                            ans += 1
-                            continue
-                        if i-1 > -1 and mat[i-1][j] != 1 and i+K < N-1 and mat[i+K][j] != 1:
-                            ans += 1
+            if rows[i][j] == K and mat[i+1][j] != 1 and mat[i+1][j+K+1] != 1:
+                ans += 1
+            if cols[i][j] == K and mat[i][j+1] != 1 and mat[i+K+1][j+1] != 1:
+                ans += 1
+    [print(*i) for i in rows]
+    print()
+    [print(*i) for i in cols]
+    print()
     print("#{} {}".format(_+1, ans))
