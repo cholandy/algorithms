@@ -14,8 +14,8 @@ for _ in range(int(input())):
             mat.append(a)
     rows = [[0]*N for _ in range(N)]
     cols = [[0]*N for _ in range(N)]
-    [print(*i) for i in mat]
-    print()
+    # [print(*i) for i in mat]
+    # print()
     for i in range(1, N+1):
         for j in range(1, N+1):
             if mat[i][j]:
@@ -29,8 +29,8 @@ for _ in range(int(input())):
                 ans += 1
             if cols[i][j] == K and mat[i][j+1] != 1 and mat[i+K+1][j+1] != 1:
                 ans += 1
-    [print(*i) for i in rows]
-    print()
-    [print(*i) for i in cols]
-    print()
+    # [print(*i) for i in rows]
+    # print()
+    # [print(*i) for i in cols]
+    # print()
     print("#{} {}".format(_+1, ans))
