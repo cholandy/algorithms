@@ -8,3 +8,32 @@
 // P의 길이는 n이고 P의 원소인 휘발유 가격은 1이상 10,000,000 이하의 자연수입니다.
 
 //
+#include <iostream> 
+using namespace std; 
+class CalcModule { // Overflow를 고려하지 않은 Class 
+  private: 
+  int nX; 
+  int nY; 
+  public: 
+  CalcModule(const int x, const int y) 
+  { 
+    this->nX = x; 
+    this->nY = y; 
+ } 
+ ~CalcModule() 
+ { 
+   // Empty 
+} 
+int mod() { 
+  return nX % nY; 
+} 
+}; 
+int main() 
+{ 
+  const int nX = 1234567; 
+  const int nY = 64; 
+  CalcModule *calcModule = new CalcModule(nX, nY); 
+  cout << nX << " % " << nY << " = " << calcModule->mod() << endl; 
+  delete calcModule; 
+  return 0; 
+} 
