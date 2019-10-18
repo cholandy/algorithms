@@ -1,16 +1,22 @@
 
-public class test {
-    static void alla(int... v) {
-        System.out.print(v.length + " : ");
-        for (int x : v) {
-            System.out.print(x + " ");
-        }
-        System.out.println();
+public class Test {
+    int i = 1;
+
+    public void first() {
+        int i = 2;
+        int j = 3;
+        this.i = i + j;
+
+        second(4);
     }
 
-    public static void main(String[] args) {
-        alla(1);
-        alla(1, 2, 3);
-        alla(1, 2, 3, 4, 5);
+    public void second(int i) {
+        int j = 5;
+        this.i = i + j;
+    }
+
+    public static void main(String args[]) {
+        Test exam = new Test();
+        exam.first();
     }
 }
