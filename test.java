@@ -1,9 +1,16 @@
+
 public class test {
-    public static void main(String[] args) {
-        int a = 10;
-        for (int i = a; i > 0; --i) {
-            System.out.println(i);
+    static void alla(int... v) {
+        System.out.print(v.length + " : ");
+        for (int x : v) {
+            System.out.print(x + " ");
         }
+        System.out.println();
     }
 
+    public static void main(String[] args) {
+        alla(1);
+        alla(1, 2, 3);
+        alla(1, 2, 3, 4, 5);
+    }
 }
