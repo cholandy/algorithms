@@ -11,10 +11,12 @@ typedef long long int ll;
 struct HEAP{
     int idx;
     ll cost;
-    HEAP(){idx=0,cost=0;}
+    HEAP(){
+        idx=0,cost=0;
+    }
     HEAP(int idx,ll cost):idx(idx),cost(cost){}
 } heap[NE*3];
-
+HEAP X(3,5);
 int HN;
 
 struct LIST{
