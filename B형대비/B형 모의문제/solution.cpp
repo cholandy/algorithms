@@ -35,28 +35,24 @@ struct database
 
 int list_cnt, trie_cnt, db_cnt, enc[128], enc_cnt;
 
-void InitDB()
-{
+void InitDB() {
 	int i;
 	for (i = 1; i <= 50000; ++i)
 	{
 		db[i].isUsed = false;
 	}
 	for (i = 0; i < 128; ++i)
-	{
 		if (root.link[i])
-		{
 			root.link[i] = 0;
-		}
-	}
+		
 	list_cnt = 0;
 	trie_cnt = 0;
 	db_cnt = 0;
 	enc_cnt = 0;
 	enc['@'] = enc_cnt++;
 	enc['.'] = enc_cnt++;
-	for (i = '0'; i <= '9'; ++i)
-	{
+	for (i = '0'; i <= '9'; ++i){
+	
 		enc[i] = enc_cnt++;
 	}
 	for (i = 'a'; i <= 'z'; ++i)
@@ -65,18 +61,14 @@ void InitDB()
 	}
 }
 
-int kstrlen(char *name)
-{
+int kstrlen(char *name) {
 	int i = 0;
-	while (*(name++))
-	{
-		i++;
-	}
+	while (*(name++)) i++;
+	
 	return i;
 }
 
-void swap(char *a, char *b)
-{
+void swap(char *a, char *b) {
 	char t;
 	t = *a;
 	*a = *b;
@@ -109,25 +101,22 @@ void Add(char *name, char *number, char *birthday, char *email, char *memo)
 		number,
 		birthday,
 		email,
-		memo};
+		memo
+	};
+
 	trie *now;
+
 	if (db_cnt < 50000)
-	{
 		db_idx = ++db_cnt;
-	}
 	else
-		for (db_idx = 1; db_idx <= 50000; ++db_idx)
-		{
-			if (!db[db_idx].isUsed)
-			{
-				break;
-			}
-		}
+		for (db_idx = 1; db_idx <= 50000; ++db_idx) 
+			if (!db[db_idx].isUsed) break;
+		
 	db[db_idx].isUsed = true;
+
 	for (i = 0; i < 5; ++i)
-	{
-		kstrcpy(db[db_idx].data[i], strs[i]);
-	}
+	    kstrcpy(db[db_idx].data[i], strs[i]);
+	
 	reverse(email);
 	for (i = 0; i < 5; ++i)
 	{
@@ -135,9 +124,9 @@ void Add(char *name, char *number, char *birthday, char *email, char *memo)
 		now = &root;
 		for (j = 0; j < len; ++j)
 		{
-			if (!now - > link[enc[strs[i][j]]])
+			if (!now -> link[enc[strs[i][j]]])
 			{
-				now - > link[enc[strs[i][j]]] = ++trie_cnt;
+				now -> link[enc[strs[i][j]]] = ++trie_cnt;
 				for (k = 0; k < 5; ++k)
 				{
 					tries[trie_cnt].list_idx[k] = 0;
@@ -147,16 +136,16 @@ void Add(char *name, char *number, char *birthday, char *email, char *memo)
 					tries[trie_cnt].link[k] = 0;
 				}
 			}
-			now = &tries[now - > link[enc[strs[i][j]]]];
+			now = &tries[now -> link[enc[strs[i][j]]]];
 		}
 		lst[++list_cnt].db_idx = db_idx;
 		lst[list_cnt].prv = 0;
-		lst[list_cnt].nxt = now - > list_idx[i];
-		if (now - > list_idx[i])
+		lst[list_cnt].nxt = now -> list_idx[i];
+		if (now -> list_idx[i])
 		{
-			lst[now - > list_idx[i]].prv = list_cnt;
+			lst[now -> list_idx[i]].prv = list_cnt;
 		}
-		now - > list_idx[i] = list_cnt;
+		now -> list_idx[i] = list_cnt;
 		db[db_idx].link[i] = now - tries;
 	}
 }
@@ -169,11 +158,11 @@ int Delete(FIELD field, char *str)
 		reverse(str);
 	for (i = 0; i < len; ++i)
 	{
-		now = &tries[now - > link[enc[str[i]]]];
-		if (now == NULL)
+		now = &tries[now -> link[enc[str[i]]]];
+		if (now == nullptr)
 			return 0;
 	}
-	list_idx = now - > list_idx[field];
+	list_idx = now -> list_idx[field];
 	while (list_idx)
 	{
 		ret++;
@@ -213,24 +202,24 @@ int Change(FIELD field, char *str, FIELD changefield, char *changestr)
 		reverse(changestr);
 	for (i = 0; i < len; ++i)
 	{
-		now = &tries[now - > link[enc[str[i]]]];
-		if (now == NULL)
+		now = &tries[now -> link[enc[str[i]]]];
+		if (now == nullptr)
 			return 0;
 	}
 	len = kstrlen(changestr);
 	for (i = 0; i < len; ++i)
 	{
-		if (!chg - > link[enc[changestr[i]]])
+		if (!chg -> link[enc[changestr[i]]])
 		{
-			chg - > link[enc[changestr[i]]] = ++trie_cnt;
+			chg -> link[enc[changestr[i]]] = ++trie_cnt;
 			for (j = 0; j < 5; ++j)
 				tries[trie_cnt].list_idx[j] = 0;
 			for (j = 0; j < 128; ++j)
 				tries[trie_cnt].link[j] = 0;
 		}
-		chg = &tries[chg - > link[enc[changestr[i]]]];
+		chg = &tries[chg -> link[enc[changestr[i]]]];
 	}
-	list_idx = now - > list_idx[field];
+	list_idx = now -> list_idx[field];
 	if (list_idx == 0)
 		return 0;
 	while (list_idx)
@@ -249,15 +238,15 @@ int Change(FIELD field, char *str, FIELD changefield, char *changestr)
 		if (nxt)
 			lst[lst[mov_idx].nxt].prv = prv;
 		lst[mov_idx].prv = 0;
-		lst[mov_idx].nxt = chg - > list_idx[changefield];
-		if (chg - > list_idx[changefield])
-			lst[chg - > list_idx[changefield]].prv = mov_idx;
-		chg - > list_idx[changefield] = mov_idx;
+		lst[mov_idx].nxt = chg -> list_idx[changefield];
+		if (chg -> list_idx[changefield])
+			lst[chg -> list_idx[changefield]].prv = mov_idx;
+		chg -> list_idx[changefield] = mov_idx;
 		db[lst[list_idx].db_idx].link[changefield] = chg - tries;
 		kstrcpy(db[lst[list_idx].db_idx].data[changefield], original);
 		list_idx = step;
 	}
-	now - > list_idx[changefield] = 0;
+	now -> list_idx[changefield] = 0;
 	return ret;
 }
 RESULT Search(FIELD field, char *str, FIELD ret_field)
@@ -270,8 +259,8 @@ RESULT Search(FIELD field, char *str, FIELD ret_field)
 		reverse(str);
 	for (i = 0; i < len; ++i)
 	{
-		now = &tries[now - > link[enc[str[i]]]];
-		if (now == NULL)
+		now = &tries[now -> link[enc[str[i]]]];
+		if (now == nullptr)
 			return result;
 	}
 	list_idx = now -> list_idx[field];
